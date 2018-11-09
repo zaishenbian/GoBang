@@ -1,4 +1,5 @@
 let webpack = require('webpack');
+let path = require('path');
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -9,9 +10,7 @@ module.exports = {
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: './views',    //本地服务器加载的页面所在的目录
-        inline: true,              //实时刷新
-        historyApiFallback: true,  //所有跳转都将指向index.html，页面不跳转
+        contentBase: path.join(__dirname, 'views'),    //本地服务器加载的页面所在的目录
         port: 3000,                //默认8080
         compress: true
     },
