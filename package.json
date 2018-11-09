@@ -1,0 +1,39 @@
+{
+  "name": "gobang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --hot",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaishenbian/GoBang.git"
+  },
+  "keywords": [
+    "gobang"
+  ],
+  "author": "程耀伟",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zaishenbian/GoBang/issues"
+  },
+  "homepage": "https://github.com/zaishenbian/GoBang#readme",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "autoprefixer": "^9.3.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.1",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
