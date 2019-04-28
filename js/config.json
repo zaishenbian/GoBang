@@ -1,4 +1,10 @@
 {
     "H_SIZE": 15,
-    "W_SIZE": 15
+    "W_SIZE": 15,
+    "CHESSBOARD_WIDTH": 750,
+    "CHESSBOARD_HEIGHT": 750,
+    "CHESS_RATIO": 0.4,
+    "WIN_COUNT": 5,
+    "WHITE": 1,
+    "BLACK": 2
 }

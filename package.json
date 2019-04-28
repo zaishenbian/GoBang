@@ -22,18 +22,22 @@
   },
   "homepage": "https://github.com/zaishenbian/GoBang#readme",
   "devDependencies": {
-    "@babel/core": "^7.1.5",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "autoprefixer": "^9.3.1",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.1",
+    "html-webpack-plugin": "^3.2.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2",
+    "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.1.10"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,4 +1,5 @@
 let webpack = require('webpack');
+let HTMLWebpackPlugin = require('html-webpack-plugin');
 let path = require('path');
 
 module.exports = {
@@ -18,8 +19,10 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                use: { loader: 'babel-loader' },
-                exclude: /node_modules/
+                use: { 
+                    loader: 'babel-loader'
+                },
+                exclude: __dirname + 'node_modules'
             },
             {
                 test: /\.less$/,
@@ -38,5 +41,11 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
-    }
+    },
+    plugins: [
+        new HTMLWebpackPlugin({
+            filename: 'index.html',
+            template: 'views/index.html'
+        })
+    ]
 }
