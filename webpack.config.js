@@ -5,13 +5,13 @@ let path = require('path');
 module.exports = {
     devtool: 'eval-source-map',
     mode: 'development',
-    entry: __dirname + '/index.js',
+    entry: __dirname + '/src/app.js',
     output: {
         path: __dirname + '/dist',
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: path.join(__dirname, 'views'),    //本地服务器加载的页面所在的目录
+        contentBase: path.join(__dirname, 'src'),    //本地服务器加载的页面所在的目录
         port: 3000,                //默认8080
         compress: true
     },
@@ -38,14 +38,24 @@ module.exports = {
                     { loader: 'postcss-loader' },
                     { loader: 'less-loader' }
                 ],
-                exclude: /node_modules/
+                exclude: __dirname + 'node_modules'
+            },
+            {
+                test: /\.(jpg|png|gif|jpeg)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 1024
+                    }
+                },
+                exclude: __dirname + 'node_modules'
             }
         ]
     },
     plugins: [
         new HTMLWebpackPlugin({
             filename: 'index.html',
-            template: 'views/index.html'
+            template: 'src/views/index.html'
         })
     ]
 }

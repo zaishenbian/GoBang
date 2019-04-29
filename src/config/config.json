@@ -6,5 +6,10 @@
     "CHESS_RATIO": 0.4,
     "WIN_COUNT": 5,
     "WHITE": 1,
-    "BLACK": 2
+    "BLACK": 2,
+    "WINNER": {
+        "WHITE": 1,
+        "BLACK": 2,
+        "DRAW": 3
+    }
 }
