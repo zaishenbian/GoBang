@@ -12,7 +12,7 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, 'src'),    //本地服务器加载的页面所在的目录
-        port: 3000,                //默认8080
+        port: 3000,                //默认3000
         compress: true
     },
     module: {
@@ -45,7 +45,9 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     options: {
-                        limit: 1024
+                        limit: 1024,
+                        outputPath: 'assets/',
+                        name: '[name].[ext]'
                     }
                 },
                 exclude: __dirname + 'node_modules'

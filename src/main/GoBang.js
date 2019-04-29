@@ -1,3 +1,4 @@
+import bg from '../assets/bg.jpg'
 export default class GoBang {
     constructor(config) {
         // 初始化配置，人为白，机为黑
@@ -15,7 +16,7 @@ export default class GoBang {
         this.listenClick()
         // 加载图片(预先加载并缓存图片，防止重新开始游戏时画面闪烁)
         this.bgImg = new Image()
-        this.bgImg.src = './assets/bg.jpg'
+        this.bgImg.src = bg
         this.bgImg.onload = () => {
             // 开始游戏
             this.restart()
