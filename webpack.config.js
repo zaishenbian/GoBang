@@ -28,13 +28,7 @@ module.exports = {
                 test: /\.less$/,
                 use: [
                     { loader: 'style-loader' },
-                    { 
-                        loader: 'css-loader' ,
-                        options: {
-                            modules: true,     //指定启用css module
-                            localIndentName: '[name]_[local]_[hash:base64:5]'   //指定css的类名格式
-                        }
-                    },
+                    { loader: 'css-loader' },
                     { loader: 'postcss-loader' },
                     { loader: 'less-loader' }
                 ],
