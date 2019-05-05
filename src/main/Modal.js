@@ -29,9 +29,9 @@ export default class Modal {
     }
     ok() {
         this.config.ok.call(this)
+        this.remove()
     }
     cancel() {
-        console.log('cancel')
         this.config.cancel.call(this)
         this.remove()
     }

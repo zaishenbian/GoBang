@@ -1,9 +1,9 @@
 import io from 'socket.io-client'
 import ChessBoardConfig from '../config/config.json'
-import GoBang from '../main/GoBang'
-import Modal from '../main/Modal'
+import GoBang from './GoBang'
+import Modal from './Modal'
 
-let socket = io.connect('ws://localhost:8080/GoBang')
+export const socket = io.connect('ws://10.168.1.33:8080/GoBang')
 
 socket.on('connect', function() {
     console.log('连接成功')
@@ -19,15 +19,26 @@ socket.on('createUser', function(data) {
 })
 
 socket.on('join', function(data) {
-    console.log('加入'+data)
+    if (data.status === 1) {
+        Room.white.innerHTML = data.name
+    } else if (data.status === 2) {
+        Room.black.innerHTML = data.name
+    }
 })
 
 socket.on('leave', function(data) {
-    console.log('离开'+data)
+    if (data.status === 1) {
+        Room.white.innerHTML = ''
+    } else if (data.status === 2) {
+        Room.black.innerHTML = ''
+    }
 })
 
 socket.on('moveChess', function(data) {
-    console.log('落子'+data)
+    let x = data.coord[0]
+    let y = data.coord[1]
+    let side = data.status
+    Room.GoBang.moveChess(x, y ,side)
 })
 
 socket.on('disconnect', function() {
@@ -39,9 +50,11 @@ socket.on('error', function(error) {
     console.log('连接失败')
 })
 
-let Room = {
+export const Room = {
     username: localStorage.getItem('username'),
     status: 3,  // 身份 1 白 2 黑 3 旁观
+    white: document.querySelector('.side .white'),
+    black: document.querySelector('.side .black'),
     enterRoom: function() {
         if (!Room.username) {
             new Modal({
@@ -53,14 +66,33 @@ let Room = {
                 }
             })
         } else {
+            Room.join()
             Room.start()
         }
     },
     start: function() {
         let restart = document.querySelector('#restart')
-        let myGoBang = new GoBang(ChessBoardConfig)
+        let side = document.querySelector('.side')
+        let sitWhite = document.querySelector('.side .sitWhite')
+        let sitBlack = document.querySelector('.side .sitBlack')
+        Room.GoBang = new GoBang(ChessBoardConfig)
+        side.style.visibility = 'visible'
         restart.addEventListener('click', function() {
-            myGoBang.restart()
+            Room.GoBang.restart()
+        })
+        sitWhite.addEventListener('click', function() {
+            if (Room.white.innerHTML === '') {
+                Room.leave()
+                Room.status = 1
+                Room.join()
+            }
+        })
+        sitBlack.addEventListener('click', function() {
+            if (Room.black.innerHTML === '') {
+                Room.leave()
+                Room.status = 2
+                Room.join()
+            }
         })
     },
     join: function() {
@@ -68,11 +100,14 @@ let Room = {
             status: Room.status,
             name: Room.username
         })
+    },
+    leave: function() {
+        socket.emit('leave', {
+            status: Room.status,
+            name: Room.username
+        })
     }
 }
 
-export default Room
-
-// window.onbeforeunload = function() {
-//     socket.emit('leave', '123')
-// }
+// 监听浏览器刷新或关闭
+window.onbeforeunload = Room.leave

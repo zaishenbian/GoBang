@@ -1,4 +1,7 @@
 import bg from '../assets/bg.jpg'
+import { socket, Room } from './Room'
+import Modal from './Modal'
+
 export default class GoBang {
     constructor(config) {
         // 初始化配置，人为白，机为黑
@@ -96,7 +99,20 @@ export default class GoBang {
         this.canvas.addEventListener('click', function(e) {
             let x = Math.floor(e.offsetX / self.config.grid_width)
             let y = Math.floor(e.offsetY / self.config.grid_height)
-            self.moveChess(x, y, self.config.SIDE)
+            if (Room.status === 3) {
+                new Modal({
+                    title: '提示',
+                    content: `观战状态不能落子`
+                })
+                return
+            }
+            let msg = {
+                status: Room.status,
+                name: Room.username,
+                coord: [x, y]
+            }
+            socket.emit('moveChess', msg)
+            // self.moveChess(x, y, self.config.SIDE)
         })
     }
     /**
