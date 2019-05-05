@@ -19,17 +19,17 @@ socket.on('createUser', function(data) {
 })
 
 socket.on('join', function(data) {
-    if (data.status === 1) {
+    if (data.status === Room.GoBang.config.WHITE) {
         Room.white.innerHTML = data.name
-    } else if (data.status === 2) {
+    } else if (data.status === Room.GoBang.config.BLACK) {
         Room.black.innerHTML = data.name
     }
 })
 
 socket.on('leave', function(data) {
-    if (data.status === 1) {
+    if (data.status === Room.GoBang.config.WHITE) {
         Room.white.innerHTML = ''
-    } else if (data.status === 2) {
+    } else if (data.status === Room.GoBang.config.BLACK) {
         Room.black.innerHTML = ''
     }
 })
@@ -39,6 +39,10 @@ socket.on('moveChess', function(data) {
     let y = data.coord[1]
     let side = data.status
     Room.GoBang.moveChess(x, y ,side)
+})
+
+socket.on('restart', function() {
+    Room.GoBang.restart()
 })
 
 socket.on('disconnect', function() {
@@ -78,19 +82,26 @@ export const Room = {
         Room.GoBang = new GoBang(ChessBoardConfig)
         side.style.visibility = 'visible'
         restart.addEventListener('click', function() {
-            Room.GoBang.restart()
+            if (Room.status !== Room.GoBang.config.BLACK) {
+                new Modal({
+                    title: '提示',
+                    content: '只有黑棋才能重新开始'
+                })
+                return
+            }
+            socket.emit('restart')
         })
         sitWhite.addEventListener('click', function() {
             if (Room.white.innerHTML === '') {
                 Room.leave()
-                Room.status = 1
+                Room.status = Room.GoBang.config.WHITE
                 Room.join()
             }
         })
         sitBlack.addEventListener('click', function() {
             if (Room.black.innerHTML === '') {
                 Room.leave()
-                Room.status = 2
+                Room.status = Room.GoBang.config.BLACK
                 Room.join()
             }
         })
